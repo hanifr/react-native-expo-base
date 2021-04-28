@@ -1,12 +1,17 @@
 # react-native-expo-base
 
 # Project setup
-## Visual Studio C terminal
 ```
+git clone https://github.com/hanifr/react-native-expo-base
+```
+## Use Visual Studio C terminal
+### Go to apps directory and install dependencies
+```
+cd react-native-expo-base
 yarn
 ```
 
-# Run the app
+### Run the app
 ```
 yarn start
 ```
