@@ -5,13 +5,13 @@ import React ,{useState, useEffect} from 'react';
 import { StyleSheet, SafeAreaView, Image} from 'react-native';
 
 var mqtt = require('@taoqf/react-native-mqtt')
-var client  = mqtt.connect('wss://tron.airmode.live:8083/mqtt')
+var client  = mqtt.connect('wss://nex.airmode.live:8083/mqtt')
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 client.on('connect', function () {
-  client.subscribe('station1', function (err) {
+  client.subscribe('gps', function (err) {
     if (!err) {
     //client.publish('qwazx', 'Hello mqtt111')
     }
@@ -20,18 +20,18 @@ client.on('connect', function () {
 })
 
 export default function TabOneScreen() {
-  const [O2,setO2] = useState(()=> '')
-  const [LEL,setLEL] = useState(()=> '')
-  const [VOC,setVOC] = useState(()=> '')
+  const [GID,setGID] = useState(()=> '')
+  const [Lat,setLat] = useState(()=> '')
+  const [Lon,setLon] = useState(()=> '')
 
 
   useEffect(() => {
     client.on('message', function (topic, message) {
       // message is Buffer
       // const data = JSON.parse(message.toString())
-      setO2(JSON.parse(message.toString()).O2)
-      setLEL(JSON.parse(message.toString()).LEL)
-      setVOC(JSON.parse(message.toString()).VOC)
+      setGID(JSON.parse(message.toString()).GID)
+      setLat(JSON.parse(message.toString()).Lat)
+      setLon(JSON.parse(message.toString()).Lon)
       // console.log('hello')
       // const data= message
     })
@@ -41,9 +41,9 @@ export default function TabOneScreen() {
       <Text style={styles.title}>Tab One</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      <Text style={styles.data}>O2 - {O2}</Text>
-        <Text style={styles.data}>LEL - {LEL}</Text>
-        <Text style={styles.data}>VOC - {VOC}</Text>
+      <Text style={styles.data}>GID - {GID}</Text>
+        <Text style={styles.data}>Lat - {Lat}</Text>
+        <Text style={styles.data}>Lon - {Lon}</Text>
     </View>
   );
 }
